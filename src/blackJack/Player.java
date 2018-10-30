@@ -19,7 +19,7 @@ public class Player {
 	 * ACE는 1&11 -> 총합이 10 이하인 경우 11, 10 초과인 경우 1로계산 
 	 */
 	
-	ArrayList<Card> hand = new ArrayList<Card>();
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	private int count = 0;
 	
 	public void Calculator() {
@@ -74,13 +74,18 @@ public class Player {
 		
 	}
 	
-	public Card Status() {
+	public String Status() {
 		//상태를 출력하는 방법 
-		
+		String status = "";
 		for(int i = 0; i < hand.size(); i++) {
-			return hand.get(i);
+			status = "[" + hand.get(i).getSuit() + hand.get(i).getRank() + "]";
+			return status;
 		}
 		
-		return null;
+		return status;
+	}
+	
+	public void addCard(Card card) {
+		hand.add(card);
 	}
 }

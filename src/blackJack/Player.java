@@ -88,4 +88,8 @@ public class Player {
 	public void addCard(Card card) {
 		hand.add(card);
 	}
+	
+	public int getCount() {
+		return count;
+	}
 }

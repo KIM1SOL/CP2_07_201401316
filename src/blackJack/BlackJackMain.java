@@ -21,10 +21,18 @@ public class BlackJackMain {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		CardDeck asd = new CardDeck();
-		asd.shuffle();
-		System.out.print(asd.popCard().getSuit());
-		System.out.print(asd.popCard().getRank());
+		CardDeck NewDeck = new CardDeck();
+		NewDeck.shuffle();
+		
+		Player player = new Player();
+		Dealer dealer = new Dealer();
+		
+		//카드를 두장씩 지급
+		player.addCard(NewDeck.popCard());
+		dealer.addCard(NewDeck.popCard());
+		
+		player.addCard(NewDeck.popCard());
+		dealer.addCard(NewDeck.popCard());
 		
 		
 	}

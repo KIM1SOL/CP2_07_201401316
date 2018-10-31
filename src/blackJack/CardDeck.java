@@ -235,6 +235,7 @@ public class CardDeck {
 	public Card popCard() {
 		Card temp = new Card();
 		temp = deck.remove(0);
+		//System.out.println(temp.getRank()+temp.getSuit());
 		return temp;
 	}
 	

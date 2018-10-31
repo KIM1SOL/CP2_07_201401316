@@ -20,10 +20,12 @@ public class Player {
 	 */
 	
 	private ArrayList<Card> hand = new ArrayList<Card>();
-	private int count = 0;
+	private int count_P = 0;
+	private String status_P = "";
 	
-	public void Calculator() {
+	public int Calculator(ArrayList<Card> hand) {
 		//점수계산
+		int count = 0;
 		for(int i = 0; i < hand.size(); i ++) {
 			
 			if(hand.get(i).getRank() == "2") {
@@ -72,14 +74,18 @@ public class Player {
 			}
 		}
 		
+		return count;
+		
 	}
 	
-	public String Status() {
+	
+	
+	public String Status(ArrayList<Card> hand, String status) {
 		//상태를 출력하는 방법 
-		String status = "";
-		for(int i = 0; i < hand.size(); i++) {
-			status = "[" + hand.get(i).getSuit() + hand.get(i).getRank() + "]";
-			return status;
+		//String status = "";
+		int temp = hand.size();
+		for(int i = 0; i < temp; i++) {
+			status += "[" + hand.get(i).getSuit() + hand.get(i).getRank() + "]";
 		}
 		
 		return status;
@@ -90,6 +96,18 @@ public class Player {
 	}
 	
 	public int getCount() {
-		return count;
+		return count_P;
 	}
+	
+	public void setCount(int count) {
+		count_P = count;
+	}
+	
+	public ArrayList<Card> getHand(){
+		return hand;
+	}
+	public String getStatus() {
+		return status_P;
+	}
+	
 }

@@ -1,5 +1,7 @@
 package blackJack;
 
+import java.util.Scanner;
+
 public class BlackJackMain {
 	/*
 	 * 딜러와 플레이어는 2장씩 카드를 나눠 갖는다.
@@ -21,20 +23,91 @@ public class BlackJackMain {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		CardDeck NewDeck = new CardDeck();
-		NewDeck.shuffle();
 		
 		Player player = new Player();
 		Dealer dealer = new Dealer();
 		
-		//카드를 두장씩 지급
-		player.addCard(NewDeck.popCard());
-		dealer.addCard(NewDeck.popCard());
 		
-		player.addCard(NewDeck.popCard());
-		dealer.addCard(NewDeck.popCard());
 		
+		System.out.println("-- [ Black Jack ] --");
+		System.out.println("게임을 시작합니다.");
+		System.out.println("딜러가 카드를 셔플합니다.");
+		dealer.Shuffle_D();
+		
+		System.out.println("딜러가 카드를 받습니다.");
+		dealer.addCard(dealer.getDeck().popCard());
+		dealer.addCard(dealer.getDeck().popCard());
+		
+		System.out.println("플레이어에게 카드 2장을 줍니다.");
+		player.addCard(dealer.getDeck().popCard());
+		player.addCard(dealer.getDeck().popCard());
+		
+		if(player.getCount() == 21) {
+			System.out.println("BLACK JACK");
+			System.out.println("플레이어 승리 !!! ");
+			System.exit(0);
+		}
+		
+		while(true) {
+			System.out.println("<현재 카드 상태>");
+			if(dealer.getHand().size() >= 2) {
+				String dealer_status = "[" + dealer.getHand().get(0).getSuit() + dealer.getHand().get(0).getRank()+ "]";
+				for(int i = 1 ; i < dealer.getHand().size(); i++) {
+					dealer_status += "[xxxxxx]";
+				}
+				System.out.println("Dealer : { " + dealer_status +" }");
+			}
+			else {
+				System.out.println("Dealer : {"+ dealer.Status(dealer.getHand(), dealer.getStatus()) + "}");
+			}
+			System.out.println("Player : {"+ player.Status(player.getHand(), player.getStatus()) + "}");
+			dealer.setCount(dealer.Calculator(dealer.getHand()));
+			player.setCount(player.Calculator(player.getHand()));
+			System.out.println("Score : " + player.getCount());
+			System.out.println("");
+			
+			if(player.getCount() > 21) {
+				System.out.println("승패를 결정합니다!!!");
+				System.out.println("딜러 승리!");
+				break;
+			}
+			
+			
+			String yesOrNo = "";
+			System.out.print("카드를 더 받으시겠습니까? (y/n)");
+			Scanner scan = new Scanner(System.in);
+			yesOrNo = scan.next();
+			
+			if(yesOrNo.equals("y")) {
+				if(dealer.getCount() <= 16) {
+					dealer.addCard(dealer.getDeck().popCard());
+					player.addCard(dealer.getDeck().popCard());
+					
+				}
+				else {
+					player.addCard(dealer.getDeck().popCard());	
+				}
+			}
+			
+			else if(yesOrNo.equals("n")) {
+				if(dealer.getCount() >= player.getCount()) {
+					System.out.println("승패를 결정합니다!!!");
+					System.out.println("딜러 승리!!");
+					break;
+				}
+				else {
+					System.out.println("승패를 결정합니다!!!");
+					System.out.println("플레이어 승리!!");
+					break;
+				}
+			}
+		
+		}
+		
+		System.out.println("<모든 카드 공개>");
+		System.out.println("Dealer : {"+ dealer.Status(dealer.getHand(), dealer.getStatus()) + "}");
+		System.out.println("Player : {"+ player.Status(player.getHand(), player.getStatus()) + "}");
+		System.out.println("Score : " + player.getCount());
 		
 	}
-
 }
